@@ -1,27 +1,27 @@
-# Web Scraping with Crawlee
+# Crawlee를 사용한 Webスクレイピング
 
-[![Promo](https://github.com/luminati-io/LinkedIn-Scraper/raw/main/Proxies%20and%20scrapers%20GitHub%20bonus%20banner.png)](https://brightdata.com/) 
+[![Promo](https://github.com/luminati-io/LinkedIn-Scraper/raw/main/Proxies%20and%20scrapers%20GitHub%20bonus%20banner.png)](https://brightdata.co.kr/) 
 
-Learn how to use Crawlee for efficient [web scraping with Node.js](https://brightdata.com/blog/how-tos/web-scraping-with-node-js):
+Crawlee를 사용하여 효율적인 [Node.js로 Webスクレイピング](https://brightdata.co.kr/blog/how-tos/web-scraping-with-node-js)을 수행하는 방법을 알아보겠습니다:
 
-- [Basic Web Scraping with Crawlee](#basic-web-scraping-with-crawlee)
-- [Proxy Rotation with Crawlee](#proxy-rotation-with-crawlee)
-- [Sessions Management with Crawlee](#sessions-management-with-crawlee)
-- [Dynamic Content Handling with Crawlee](#dynamic-content-handling-with-crawlee)
+- [Crawlee로 기본 Webスクレイピング](#basic-web-scraping-with-crawlee)
+- [Crawlee로 プロキシ 로ーテ이션](#proxy-rotation-with-crawlee)
+- [Crawlee로 セッション 관리](#sessions-management-with-crawlee)
+- [Crawlee로 동적 콘텐츠 처리](#dynamic-content-handling-with-crawlee)
 
 ## Prerequisites
 
-Before you start, make sure you have the following prerequisites installed:
+시작하기 전에 다음 Prerequisites가 설치되어 있는지 확인합니다:
 
 * **[Node.js](https://nodejs.org/).**
-* **[npm](https://www.npmjs.com/):** This typically comes with Node.js. You can verify the installation by running `node -v` or `npm -v` in your terminal.
-* **A code editor of your choice:** This tutorial uses [Visual Studio Code](https://code.visualstudio.com/).
+* **[npm](https://www.npmjs.com/):** 일반적으로 Node.js와 함께 제공됩니다. 터미널에서 `node -v` 또는 `npm -v` 를 실행하여 설치를 확인할 수 있습니다.
+* **원하는 코드 에디터:** 이 튜토리얼에서는 [Visual Studio Code](https://code.visualstudio.com/)를 사용합니다.
 
 ## Basic Web Scraping with Crawlee
 
-Let’s start by scraping the [Books to Scrape](https://books.toscrape.com/) website.
+먼저 [Books to Scrape](https://books.toscrape.com/) 웹사이트를 スクレイピング해 보겠습니다.
 
-Open your terminal or shell and initialize a Node.js project:
+터미널 또는 셸을 열고 Node.js 프로젝트를 초기화합니다:
 
 ```bash
 mkdir crawlee-tutorial
@@ -29,25 +29,25 @@ cd crawlee-tutorial
 npm init -y
 ```
 
-Install the Crawlee library:
+Crawlee 라이브러리를 설치합니다:
 
 ```bash
 npm install crawlee
 ```
 
-To scrape data effectively, inspect the target website’s HTML structure. Open the site in your browser, right-click anywhere on the page, and select **Inspect** or **Inspect Element** in **Developer Tools**.
+데이터를 효과적으로 スクレイピング하려면 대상 웹사이트의 HTML 구조를 점검합니다. 브라우저에서 사이트를 열고 페이지의 아무 곳이나 우클릭한 다음 **Developer Tools**에서 **Inspect** 또는 **Inspect Element**를 선택합니다.
 
 ![Inspect HTML element](https://github.com/luminati-io/crawlee-web-scraping/blob/main/images/Inspect-HTML-element-1024x540.png)
 
-The **Elements** tab in **Developer Tools** displays the page’s HTML layout. In this example:  
+**Developer Tools**의 **Elements** 탭에는 페이지의 HTML 레이아웃이 표시됩니다. 이 예시에서는:  
 
-- Each book is inside an `article` tag with the class `product_pod`.  
-- The book title is in an `h3` tag, with the actual title stored in the `title` attribute of the nested `a` tag.  
-- The book price is inside a `p` tag with the class `price_color`.  
+- 각 책은 class가 `product_pod`인 `article` 태그 안에 있습니다.  
+- 책 제목은 `h3` 태그에 있으며, 실제 제목은 중첩된 `a` 태그의 `title` 속성에 저장됩니다.  
+- 책 가격은 class가 `price_color`인 `p` 태그 안에 있습니다.  
 
 ![Inspect the HTML elements on the Books to Scrape website](https://github.com/luminati-io/crawlee-web-scraping/blob/main/images/Inspect-the-HTML-elements-on-the-Books-to-Scrape-website-1024x522.png)
 
-Under the root directory of your project, create a file named `scrape.js` and add the following code:
+프로젝트의 루트 디렉터리 아래에 `scrape.js` 라는 파일을 생성하고 다음 코드를 추가합니다:
 
 ```js
 const { CheerioCrawler } = require('crawlee');
@@ -67,15 +67,15 @@ const crawler = new CheerioCrawler({
 crawler.run(['https://books.toscrape.com/']);
 ```
 
-This code uses `CheerioCrawler` from `crawlee` to extract book titles and prices from `https://books.toscrape.com/`. It fetches the HTML, selects `<article class="product_pod">` elements using jQuery-like syntax, and logs the results to the console.
+이 코드는 `crawlee`의 `CheerioCrawler`를 사용하여 `https://books.toscrape.com/`에서 책 제목과 가격을 추출합니다. HTML을 가져온 다음 jQuery와 유사한 문법으로 `<article class="product_pod">` 요소를 선택하고, 결과를 콘솔에 출력합니다.
 
-After adding the code to your `scrape.js` file, run it with the following command:
+`scrape.js` 파일에 코드를 추가한 후 다음 명령으로 실행합니다:
 
 ```bash
 node scrape.js
 ```
 
-An array of book titles and prices should print to your terminal:
+터미널에 책 제목과 가격 배열이 출력되어야 합니다:
 
 ```
 …output omitted…
@@ -99,37 +99,37 @@ An array of book titles and prices should print to your terminal:
 
 ## Proxy Rotation with Crawlee
 
-A proxy acts as a middleman between your computer and the internet, forwarding your web requests while masking your IP address. This helps prevent rate limits and IP bans.
+プロキシ는 컴퓨터와 인터넷 사이에서 중간자 역할을 하며, Web 리クエスト를 전달하는 동시에 IPアドレス를 마스킹합니다. 이는 レート制限 및 IP 차단을 방지하는 데 도움이 됩니다.
 
-Crawlee simplifies proxy implementation with built-in handling for retries, errors, and rotating proxies.
+Crawlee는 リトライ, 오류, 로ーテーティングプロキシ에 대한 내장 처리 기능을 제공하여 プロキシ 구현을 단순화합니다.
 
-Next, you'll set up a proxy, obtain a valid proxy address, and verify your requests are routed through it.
+다음으로 プロキシ를 설정하고, 유효한 プロキシ 주소를 얻은 뒤, 리クエスト가 해당 プロキシ를 통해 라우팅되는지 확인합니다.
 
-Since free proxies are often slow, insecure, and unreliable for sensitive web tasks, consider using a trusted service like Bright Data, which provides secure, stable, and reliable proxies. It also offers free trials, allowing you to test the service before committing. 
+무료 プロキシ는 종종 느리고, 안전하지 않으며, 민감한 웹 작업에 대해 신뢰성이 떨어지므로, 보안적이고 안정적이며 신뢰할 수 있는 プロキシ를 제공하는 Bright Data와 같은 신뢰 가능한 서비스를 사용하는 것을 고려하시기 바랍니다. 또한 무료 체험을 제공하므로, 가입 전에 서비스를 테스트할 수 있습니다. 
 
-To use Bright Data, click the **Start free trial** button on their [home page](https://brightdata.com/) and fill in the required information to create an account.
+Bright Data를 사용하려면 [홈페이지](https://brightdata.co.kr/)에서 **Start free trial** 버튼을 클릭하고 필수 정보를 입력하여 계정을 생성합니다.
 
-Once your account is created, log in to the Bright Data dashboard, navigate to **Proxies & Scraping Infrastructure**, and add a new proxy by selecting **[Residential Proxies](/proxy-types/residential-proxies)**:
+계정 생성 후 Bright Data 대시보드에 로그인하고 **Proxies & Scraping Infrastructure**로 이동한 다음 **[Residential Proxies](/proxy-types/residential-proxies)**를 선택하여 새 プロキシ를 추가합니다:
 
 ![Add a residential proxy](https://github.com/luminati-io/crawlee-web-scraping/blob/main/images/Add-a-residential-proxy-1024x574.png)
 
-Retain the default settings and finalize the creation of your residential proxy by clicking **Add**.
+기본 설정을 유지한 채로 **Add**를 클릭하여 レジデンシャルプロキシ 생성을 완료합니다.
 
-If you are asked to install a certificate, you can select **Proceed without certificate**. However, for production and real use cases, you should set up the certificate to prevent misuse if your proxy information is ever exposed.
+인증서 설치를 요청받으면 **Proceed without certificate**를 선택할 수 있습니다. 다만, 프로덕션 및 실제 사용 사례에서는 プロキシ 정보가 노출될 경우 오용을 방지하기 위해 인증서를 설정해야 합니다.
 
-Once created, take note of the proxy credentials, including the host, port, username, and password. You need these in the next step:
+생성이 완료되면 host, port, username, password를 포함한 プロキシ 자격 증명을 기록해 두십시오. 다음 단계에서 필요합니다:
 
 ![Bright Data proxy credentials](https://github.com/luminati-io/crawlee-web-scraping/blob/main/images/Bright-Data-proxy-credentials-1024x557.png)
 
-Under the root directory of your project, run the following command to install the [axios](https://www.npmjs.com/package/axios) library:
+프로젝트의 루트 디렉터리에서 다음 명령을 실행하여 [axios](https://www.npmjs.com/package/axios) 라이브러리를 설치합니다:
 
 ```bash
 npm install axios
 ```
 
-The `axios` library is used to send a GET request to `http://lumtest.com/myip.json`, which returns details about the proxy in use.
+`axios` 라이브러리는 `http://lumtest.com/myip.json`로 GET 리クエ스트를 보내는 데 사용되며, 이 URL은 사용 중인 プロキシ에 대한 세부 정보를 반환합니다.
 
-To implement this, create a file named `scrapeWithProxy.js` in your project's root directory and add the following code:
+이를 구현하려면 프로젝트 루트 디렉터리에 `scrapeWithProxy.js` 파일을 만들고 다음 코드를 추가합니다:
 
 ```js
 const { CheerioCrawler } = require("crawlee");
@@ -175,21 +175,21 @@ crawler.run(["https://books.toscrape.com/"]);
 
 > **Note:**
 > 
-> Make sure to replace the `HOST`, `PORT`, `USERNAME`, and `PASSWORD` with your credentials.
+> `HOST`, `PORT`, `USERNAME`, `PASSWORD`를 사용 중인 자격 증명으로 반드시 교체하십시오.
 
-This code uses `CheerioCrawler` from `crawlee` to scrape data from `https://books.toscrape.com/` while routing requests through a specified proxy.  
+이 코드는 `crawlee`의 `CheerioCrawler`를 사용하여 지정된 プロキシ를 통해 리クエスト를 라우팅하면서 `https://books.toscrape.com/`에서 데이터를 スクレイピング합니다.  
 
-- The proxy is configured using `ProxyConfiguration`.  
-- A GET request to `http://lumtest.com/myip.json` fetches and logs proxy details.  
-- Book titles and prices are extracted using Cheerio’s jQuery-like syntax and logged to the console.  
+- プロキシ는 `ProxyConfiguration`으로 구성합니다.  
+- `http://lumtest.com/myip.json`로 GET 리クエ스트를 보내 プロキシ 세부 정보를 가져와 콘솔에 출력합니다.  
+- Cheerio의 jQuery 유사 문법을 사용하여 책 제목과 가격을 추출하고 콘솔에 출력합니다.  
 
-Run the code to test the proxy setup and verify its functionality:
+코드를 실행하여 プロキシ 설정을 테스트하고 정상 동작을 확인합니다:
 
 ```bash
 node scrapeWithProxy.js
 ```
 
-You’ll see similar results to before, but this time, your requests are routed through Bright Data proxies. You should also see the details of the proxy logged in the console:
+이전과 유사한 결과가 표시되지만, 이번에는 리クエスト가 Bright Data プロキシ를 통해 라우팅됩니다. 또한 콘솔에 プロキシ의 세부 정보가 출력되는 것을 확인할 수 있습니다:
 
 ```js
 Proxy Information: {
@@ -217,17 +217,17 @@ Proxy Information: {
 …output omitted..
 ```
 
-Running the script with `node scrapingWithBrightData.js` should display a different IP address each time, confirming that Bright Data rotates locations and IPs automatically. This rotation helps prevent blockages and IP bans when scraping websites.
+`node scrapingWithBrightData.js`로 스크립트를 실행하면 매번 다른 IPアドレス가 표시되어 Bright Data가 위치와 IP를 자동으로 로ーテ이션한다는 것을 확인할 수 있습니다. 이러한 로ーテ이션은 웹사이트를 スクレイピング할 때 차단 및 IP 밴을 방지하는 데 도움이 됩니다.
 
 > **Note:**
 > 
-> In the `proxyConfiguration`, you could have passed different proxy IPs, but since Bright Data does that for you, you don’t need to specify the IPs.
+> `proxyConfiguration`에서 서로 다른 プロキシ IP를 전달할 수도 있지만, Bright Data가 이를 대신 처리하므로 IP를 별도로 지정할 필요가 없습니다.
 
 ## Sessions Management with Crawlee
 
-Sessions help maintain state across multiple requests, especially for sites using cookies or login sessions.  
+セッション은 특히 Cookie 또는 로그인 セッション을 사용하는 사이트에서 여러 리クエ스트 간 상태를 유지하는 데 도움이 됩니다.  
 
-To implement session management, create a file named `scrapeWithSessions.js` in your project's root directory and add the following code:
+セッション 관리를 구현하려면 프로젝트 루트 디렉터리에 `scrapeWithSessions.js` 파일을 만들고 다음 코드를 추가합니다:
 
 ```js
 const { CheerioCrawler, SessionPool } = require("crawlee");
@@ -269,19 +269,19 @@ const { CheerioCrawler, SessionPool } = require("crawlee");
 })();
 ```
 
-This code uses `CheerioCrawler` and `SessionPool` from `crawlee` to scrape data from `https://books.toscrape.com/`.  
+이 코드는 `crawlee`의 `CheerioCrawler`와 `SessionPool`을 사용하여 `https://books.toscrape.com/`에서 데이터를 スクレイピング합니다.  
 
-- A session pool is initialized and assigned to the crawler.  
-- The `requestHandler` logs session details and extracts book titles and prices using Cheerio selectors.  
-- The script performs two consecutive scraping runs, logging the session ID each time.  
+- セッション 풀을 초기화하고 크롤러에 할당합니다.  
+- `requestHandler`는 セッション 세부 정보를 로깅하고 Cheerio 셀렉터를 사용해 책 제목과 가격을 추출합니다.  
+- 스크립트는 두 번 연속으로 スクレイピング을 실행하며, 매번 セッション ID를 로깅합니다.  
 
-Run the code to verify that different sessions are being used.
+코드를 실행하여 서로 다른 セッション이 사용되는지 확인합니다.
 
 ```bash
 node scrapeWithSessions.js
 ```
 
-You should see similar results as before, but this time—with the session ID for each run:
+이전과 유사한 결과가 출력되지만, 이번에는 각 실행에 대한 セッション ID가 함께 표시됩니다:
 
 ```
 Using session: session_GmKuZ2TnVX
@@ -296,17 +296,17 @@ Using session: session_lNRxE89hXu
 …output omitted…
 ```
 
-If you run the code again, you should see that a different session ID is being used.
+코드를 다시 실행하면 다른 セッション ID가 사용되는 것을 확인할 수 있습니다.
 
 ## Dynamic Content Handling with Crawlee
 
-Scraping **dynamic websites** (those that load content via JavaScript) can be challenging, as data is only available after rendering.  
+**동적 웹사이트**(JavaScript로 콘텐츠를 로드하는 사이트)를 スクレイピング하는 것은 렌더링 이후에만 데이터가 उपलब्ध하므로 어려울 수 있습니다.  
 
-To handle this, Crawlee integrates with [Puppeteer](https://pptr.dev/), a headless browser that renders JavaScript and interacts with web pages like a human.  
+이를 처리하기 위해 Crawlee는 JavaScript를 렌더링하고 사람이 웹페이지를 사용하는 것처럼 상호작용하는 헤드리스 브라우저인 [Puppeteer](https://pptr.dev/)와 통합됩니다.  
 
-For demonstration, we'll scrape content from [this YouTube page](https://www.youtube.com/watch?v=wZ6cST5pexo). **Before scraping, always review the site's rules and terms of service.**  
+데모를 위해 [이 YouTube 페이지](https://www.youtube.com/watch?v=wZ6cST5pexo)에서 콘텐츠를 スクレイピング하겠습니다. **スクレイピング을 수행하기 전에 항상 사이트의 규칙과 서비스 약관을 검토하십시오.**  
 
-After reviewing the terms, create a file named `scrapeDynamicContent.js` in your project's root directory and add the following code:
+약관을 검토한 후, 프로젝트 루트 디렉터리에 `scrapeDynamicContent.js` 파일을 만들고 다음 코드를 추가합니다:
 
 ```js
 const { PuppeteerCrawler } = require("crawlee");
@@ -341,19 +341,19 @@ async function scrapeYouTube() {
 scrapeYouTube();
 ```
 
-Then, run the code with the following command:
+그런 다음 다음 명령으로 코드를 실행합니다:
 
 ```bash
 node scrapeDynamicContent.js
 ```
 
-This code uses `PuppeteerCrawler` from Crawlee to scrape comments from a YouTube video.  
+이 코드는 Crawlee의 `PuppeteerCrawler`를 사용하여 YouTube 동영상의 댓글을 スクレイピング합니다.  
 
-- The crawler navigates to a specific YouTube video URL and waits for the page to fully load.  
-- It selects the first ten comments using the CSS selector `#comments #content-text`.  
-- Extracted comments are logged to the console.  
+- 크롤러는 특정 YouTube 동영상 URL로 이동하고 페이지가 완전히 로드될 때까지 대기합니다.  
+- CSS 셀렉터 `#comments #content-text`를 사용하여 처음 10개의 댓글을 선택합니다.  
+- 추출된 댓글을 콘솔에 로깅합니다.  
 
-When executed, the script will output the first ten comments from the selected video.
+실행하면 스크립트는 선택한 동영상의 처음 10개 댓글을 출력합니다.
 
 ```
 INFO  PuppeteerCrawler: Starting the crawler.
@@ -370,10 +370,10 @@ I like this style, no youtube funny business. Just straight to the lifts
 …output omitted…
 ```
 
-You can find all the code used in this tutorial on [GitHub](https://github.com/See4Devs/crawlee-web-scraping).
+이 튜토리얼에서 사용된 모든 코드는 [GitHub](https://github.com/See4Devs/crawlee-web-scraping)에서 확인할 수 있습니다.
 
 ## Conclusion
 
-Crawlee can help improve the efficiency and reliability of your web scraping projects. Ready to elevate your web scraping projects with professional-grade data, tools, and proxies? Explore the comprehensive web scraping platform of Bright Data, offering [ready-to-use datasets](https://brightdata.com/products/datasets) and [advanced proxy services](https://brightdata.com/proxy-types) to streamline your data collection efforts.
+Crawlee는 Webスクレイピング 프로젝트의 효율성과 신뢰성을 향상시키는 데 도움이 될 수 있습니다. 전문 수준의 데이터, 도구, 그리고 プロキシ로 Webスクレイピング 프로젝트를 한 단계 끌어올릴 준비가 되셨습니까? [즉시 사용 가능한 データセット](https://brightdata.co.kr/products/datasets)과 [고급 プロキシ 서비스](https://brightdata.co.kr/proxy-types)를 제공하여 데이터 수집 노력을 간소화하는 Bright Data의 종합 Webスクレイピング 플랫폼을 살펴보십시오.
 
-Sign up now and start your free trial!
+지금 가입하고 무료 체험을 시작하십시오!
