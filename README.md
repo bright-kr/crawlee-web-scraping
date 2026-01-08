@@ -1,6 +1,6 @@
 # Crawlee를 사용한 Webスクレイピング
 
-[![Promo](https://github.com/luminati-io/LinkedIn-Scraper/raw/main/Proxies%20and%20scrapers%20GitHub%20bonus%20banner.png)](https://brightdata.co.kr/) 
+[![Promo](https://github.com/bright-kr/LinkedIn-Scraper/raw/main/Proxies%20and%20scrapers%20GitHub%20bonus%20banner.png)](https://brightdata.co.kr/) 
 
 Crawlee를 사용하여 효율적인 [Node.js로 Webスクレイピング](https://brightdata.co.kr/blog/how-tos/web-scraping-with-node-js)을 수행하는 방법을 알아보겠습니다:
 
@@ -37,7 +37,7 @@ npm install crawlee
 
 데이터를 효과적으로 スクレイピング하려면 대상 웹사이트의 HTML 구조를 점검합니다. 브라우저에서 사이트를 열고 페이지의 아무 곳이나 우클릭한 다음 **Developer Tools**에서 **Inspect** 또는 **Inspect Element**를 선택합니다.
 
-![Inspect HTML element](https://github.com/luminati-io/crawlee-web-scraping/blob/main/images/Inspect-HTML-element-1024x540.png)
+![Inspect HTML element](https://github.com/bright-kr/crawlee-web-scraping/blob/main/images/Inspect-HTML-element-1024x540.png)
 
 **Developer Tools**의 **Elements** 탭에는 페이지의 HTML 레이아웃이 표시됩니다. 이 예시에서는:  
 
@@ -45,7 +45,7 @@ npm install crawlee
 - 책 제목은 `h3` 태그에 있으며, 실제 제목은 중첩된 `a` 태그의 `title` 속성에 저장됩니다.  
 - 책 가격은 class가 `price_color`인 `p` 태그 안에 있습니다.  
 
-![Inspect the HTML elements on the Books to Scrape website](https://github.com/luminati-io/crawlee-web-scraping/blob/main/images/Inspect-the-HTML-elements-on-the-Books-to-Scrape-website-1024x522.png)
+![Inspect the HTML elements on the Books to Scrape website](https://github.com/bright-kr/crawlee-web-scraping/blob/main/images/Inspect-the-HTML-elements-on-the-Books-to-Scrape-website-1024x522.png)
 
 프로젝트의 루트 디렉터리 아래에 `scrape.js` 라는 파일을 생성하고 다음 코드를 추가합니다:
 
@@ -111,7 +111,7 @@ Bright Data를 사용하려면 [홈페이지](https://brightdata.co.kr/)에서 
 
 계정 생성 후 Bright Data 대시보드에 로그인하고 **Proxies & Scraping Infrastructure**로 이동한 다음 **[Residential Proxies](/proxy-types/residential-proxies)**를 선택하여 새 プロキシ를 추가합니다:
 
-![Add a residential proxy](https://github.com/luminati-io/crawlee-web-scraping/blob/main/images/Add-a-residential-proxy-1024x574.png)
+![Add a residential proxy](https://github.com/bright-kr/crawlee-web-scraping/blob/main/images/Add-a-residential-proxy-1024x574.png)
 
 기본 설정을 유지한 채로 **Add**를 클릭하여 レジデンシャルプロキシ 생성을 완료합니다.
 
@@ -119,7 +119,7 @@ Bright Data를 사용하려면 [홈페이지](https://brightdata.co.kr/)에서 
 
 생성이 완료되면 host, port, username, password를 포함한 プロキシ 자격 증명을 기록해 두십시오. 다음 단계에서 필요합니다:
 
-![Bright Data proxy credentials](https://github.com/luminati-io/crawlee-web-scraping/blob/main/images/Bright-Data-proxy-credentials-1024x557.png)
+![Bright Data proxy credentials](https://github.com/bright-kr/crawlee-web-scraping/blob/main/images/Bright-Data-proxy-credentials-1024x557.png)
 
 프로젝트의 루트 디렉터리에서 다음 명령을 실행하여 [axios](https://www.npmjs.com/package/axios) 라이브러리를 설치합니다:
 
